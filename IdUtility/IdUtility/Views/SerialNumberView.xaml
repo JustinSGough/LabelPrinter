@@ -1,0 +1,86 @@
+﻿<UserControl 
+    x:Class="Logikos.Restoration.IdUtility.Views.SerialNumberView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d">
+    <Control.Resources>
+        <system:Double x:Key="TextBoxHeight">25</system:Double>
+        <system:Double x:Key="TextBoxWidth">160</system:Double>
+        <system:Double x:Key="ButtonHeight">30</system:Double>
+        <system:Double x:Key="ButtonImageHeight">25</system:Double>
+        <Thickness x:Key="Margin">2,2,2,2</Thickness>
+        <GridLength x:Key="GridRowHeight"></GridLength>
+     </Control.Resources>
+
+    <Grid Width="285" Height="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="IdRow" Height="auto"/>
+            <RowDefinition Name="TypeRow" Height="auto"/>
+            <RowDefinition Name="SerialNumberRow" Height="auto" />
+            <RowDefinition Name="TrackerIdRow" Height="auto" />
+            <RowDefinition Name="BatchDateRow" Height="auto"/>
+            <RowDefinition Name="CommentRow" Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="170"/>
+        </Grid.ColumnDefinitions>
+        <!-- ID -->
+        <Label Grid.Row="0" Grid.Column="0" Visibility="Collapsed">Id:</Label>
+        <TextBox 
+            Name="Id" 
+            Grid.Row="0" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}"  HorizontalAlignment="Left" 
+            IsEnabled="False" Visibility="Collapsed"
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.Id}" />
+        <!-- Serial Number Type -->
+        <Label Grid.Row="1" Grid.Column="0" Visibility="Collapsed" Margin="{StaticResource Margin}">Type:</Label>
+        <TextBox 
+            Name="Type" 
+            Grid.Row="1" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}"   HorizontalAlignment="Left" 
+            IsEnabled="True"  Visibility="Collapsed"
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.SerialNumberTypeId}"/>
+        <!-- Serial Number -->
+        <Label Grid.Row="2" Grid.Column="0" Margin="{StaticResource Margin}">Serial Number:</Label>
+        <TextBox 
+            Name="SerialNumber" 
+            Grid.Row="2" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}" HorizontalAlignment="Left" 
+            IsEnabled="True"
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.SerialNumber1}" IsReadOnly="True" />
+        <!-- Tracker ID -->
+        <Label  Grid.Row="3" Grid.Column="0" Visibility="Collapsed" Margin="{StaticResource Margin}">Tracker Id:</Label>
+        <TextBox 
+            Name="TrackerId" 
+            Grid.Row="3" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}" HorizontalAlignment="Left" 
+            IsEnabled="False"  Visibility="Collapsed"
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.TrackerId}"/>
+        <!-- Batch Date -->
+        <Label Grid.Row="4" Grid.Column="0" Margin="{StaticResource Margin}">Batch Date:</Label>
+        <TextBox 
+            Name="BatchDate" 
+            Grid.Row="4" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}" HorizontalAlignment="Left" 
+            IsEnabled="True" 
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.BatchDate}" IsReadOnly="True" />
+        <!-- Comment -->
+        <Label Grid.Row="5" Grid.Column="0" Margin="{StaticResource Margin}">Comment:</Label>
+        <TextBox 
+            Name="Comment" 
+            Grid.Row="5" Grid.Column="1" 
+            Width="{StaticResource TextBoxWidth}" HorizontalAlignment="Left" 
+            IsEnabled="True" 
+            Margin="{StaticResource Margin}"
+            Text="{Binding Path=SerialNumber.Comment}" IsReadOnly="True" />
+    </Grid>
+</UserControl>

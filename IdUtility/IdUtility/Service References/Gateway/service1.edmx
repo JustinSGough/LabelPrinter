@@ -1,0 +1,75 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="OverviewCommon.GatewayModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="GatewayEntities" p7:LazyLoadingEnabled="true" p8:Guid="0af4a3b2-5cd9-46bb-abca-8ff3d0263009" m:IsDefaultEntityContainer="true" xmlns:p8="http://devart.com/schemas/EntityDeveloper/1.0" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="SerialNumberTypes" EntityType="OverviewCommon.GatewayModel.SerialNumberType" />
+        <EntitySet Name="SerialNumbers" EntityType="OverviewCommon.GatewayModel.SerialNumber" />
+        <EntitySet Name="Trackers" EntityType="OverviewCommon.GatewayModel.Tracker" />
+        <AssociationSet Name="SerialNumberType_SerialNumberSet" Association="OverviewCommon.GatewayModel.SerialNumberType_SerialNumber">
+          <End Role="SerialNumberType" EntitySet="SerialNumberTypes" />
+          <End Role="SerialNumbers" EntitySet="SerialNumbers" />
+        </AssociationSet>
+        <AssociationSet Name="Tracker_SerialNumberSet" Association="OverviewCommon.GatewayModel.Tracker_SerialNumber">
+          <End Role="Tracker" EntitySet="Trackers" />
+          <End Role="SerialNumbers" EntitySet="SerialNumbers" />
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="SerialNumberType" p7:Guid="a439c79f-3e67-4d71-a0f6-9575c856d8d5" xmlns:p7="http://devart.com/schemas/EntityDeveloper/1.0">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p9:StoreGeneratedPattern="Identity" p7:Guid="86ef4d89-7a33-4a54-959c-a7e80297fdb8" xmlns:p9="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" p7:Guid="69f18230-f903-4e25-9c50-140d4e45b1ba" />
+        <Property Name="Comment" Type="Edm.String" Nullable="true" Unicode="true" p7:Guid="bfc2f8c1-ddea-4240-85a8-18c85479d777" />
+        <NavigationProperty Name="SerialNumbers" Relationship="OverviewCommon.GatewayModel.SerialNumberType_SerialNumber" FromRole="SerialNumberType" ToRole="SerialNumbers" p7:Guid="6c52d896-d493-4f4d-8663-34bb587b5e4b" />
+      </EntityType>
+      <EntityType Name="SerialNumber" p7:Guid="8badcdcc-c275-46a5-9ec2-3df7d900cc06" xmlns:p7="http://devart.com/schemas/EntityDeveloper/1.0">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p9:StoreGeneratedPattern="Identity" p7:Guid="bb260a66-7fab-44c9-b8e0-b144f41af440" xmlns:p9="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="SerialNumberTypeId" Type="Edm.Int32" Nullable="false" p7:Guid="5759f13c-1125-4c68-b681-a2e64e99c86f" />
+        <Property Name="TheSerialNumber" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" p7:Guid="54cc4ac2-a2a0-4fa8-964f-ab5c7cc2aa1e" />
+        <Property Name="TrackerId" Type="Edm.Int32" Nullable="true" p7:Guid="f6a0fd63-953f-43fe-a981-5f7e352229c5" />
+        <Property Name="BatchDate" Type="Edm.DateTime" Nullable="false" p7:Guid="4828fd3d-c6a0-452d-a7a6-b2a0eae8cac5" />
+        <Property Name="Comment" Type="Edm.String" Nullable="true" Unicode="true" p7:Guid="428252a8-7a98-493e-8398-8edc4fd5bd4c" />
+        <NavigationProperty Name="SerialNumberType" Relationship="OverviewCommon.GatewayModel.SerialNumberType_SerialNumber" FromRole="SerialNumbers" ToRole="SerialNumberType" p7:Guid="70fdf26e-b98b-4cb6-a8bd-c05f2b551ec9" />
+        <NavigationProperty Name="Tracker" Relationship="OverviewCommon.GatewayModel.Tracker_SerialNumber" FromRole="SerialNumbers" ToRole="Tracker" p7:Guid="ac4d33f0-b5f7-49de-a27f-b292e3289373" />
+      </EntityType>
+      <EntityType Name="Tracker" p7:Guid="ab745d57-e149-46f8-bcaf-ee47629fac32" xmlns:p7="http://devart.com/schemas/EntityDeveloper/1.0">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p9:StoreGeneratedPattern="Identity" p7:Guid="bfebb37c-4c81-4144-aea9-ffc8493b9ce0" xmlns:p9="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="MobileId" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" p7:Guid="2b21594f-8eb5-48d7-9a16-908037bf435a" />
+        <Property Name="ClientId" Type="Edm.Int32" Nullable="true" p7:Guid="3614e5a0-5a79-43d4-8936-842b03fb2b0b" />
+        <Property Name="Comment" Type="Edm.String" Nullable="true" Unicode="true" p7:Guid="c3ac677b-9c18-40cf-b29a-54549f56139b" />
+        <NavigationProperty Name="SerialNumbers" Relationship="OverviewCommon.GatewayModel.Tracker_SerialNumber" FromRole="Tracker" ToRole="SerialNumbers" p7:Guid="6ff1b1e0-1b39-4df1-87e8-a4ae4c62498d" />
+      </EntityType>
+      <Association Name="SerialNumberType_SerialNumber" p7:Guid="3e2cc1bd-0fa0-4ae8-9df4-8a00672a633c" xmlns:p7="http://devart.com/schemas/EntityDeveloper/1.0">
+        <End Role="SerialNumberType" Type="OverviewCommon.GatewayModel.SerialNumberType" Multiplicity="1" />
+        <End Role="SerialNumbers" Type="OverviewCommon.GatewayModel.SerialNumber" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="SerialNumberType">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="SerialNumbers">
+            <PropertyRef Name="SerialNumberTypeId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Tracker_SerialNumber" p7:Guid="6bd74775-3d53-4035-b0f1-0338fd514f26" xmlns:p7="http://devart.com/schemas/EntityDeveloper/1.0">
+        <End Role="Tracker" Type="OverviewCommon.GatewayModel.Tracker" Multiplicity="0..1" />
+        <End Role="SerialNumbers" Type="OverviewCommon.GatewayModel.SerialNumber" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Tracker">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="SerialNumbers">
+            <PropertyRef Name="TrackerId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

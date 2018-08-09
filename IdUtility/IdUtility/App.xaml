@@ -1,0 +1,8 @@
+﻿<Application x:Class="Logikos.Restoration.IdUtility.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml" Activated="Window_Activated">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

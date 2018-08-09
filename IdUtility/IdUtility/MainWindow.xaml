@@ -1,0 +1,205 @@
+﻿<Window 
+    x:Name="Main"
+    x:Class="Logikos.Restoration.IdUtility.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:Logikos.Restoration.IdUtility.Views"
+    Title="Overview ID Label Utility" Width="595" Height="480" 
+    DataContextChanged="Window_DataContextChanged">
+    
+    <Control.Resources>
+        <system:Double x:Key="TextBoxHeight">25</system:Double>
+        <system:Double x:Key="ButtonHeight">32</system:Double>
+        <system:Double x:Key="ButtonImageHeight">32</system:Double>
+        <Thickness x:Key="Margin">2,2,2,2</Thickness>
+        <Thickness x:Key="ButtonMargin">5,2,5,2</Thickness>
+    </Control.Resources>
+    
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Height="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:SearchView
+            x:Name="searchView"
+            Grid.Row="0" Grid.Column="0" 
+            Margin="{StaticResource Margin}"
+            ToolTip="Enter serial number and hit enter to view results below." Search="searchView_Search" />
+        <StackPanel 
+            Grid.Row="1" Grid.Column="0"
+            Orientation="Horizontal" HorizontalAlignment="Center"
+            Margin="{StaticResource Margin}">
+            <CheckBox 
+                Name="autoLoad"
+                VerticalAlignment="Center"
+                Margin="{StaticResource Margin}"
+                ToolTip="Check to automatically look up serial number when Enter is keyed above.  Useful for scanner operation." IsChecked="True">
+                Auto
+            </CheckBox>           
+            <Button 
+                Name="search"
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Margin="{StaticResource Margin}"
+                Click="search_Click"
+                ToolTip="Enter serial number and hit enter or click the arrow button to view results below.  Check 'Auto' to do this automatically when the return key is pressed, or a bar code scan is performed.">
+                <Image 
+                    Height="{StaticResource ButtonImageHeight}" Width="{StaticResource ButtonImageHeight}" 
+                    Source="/IdUtility;component/Views/Resources/arrow-down.png"/>
+            </Button>
+
+        </StackPanel>
+        
+        <local:FileSelectionView
+            x:Name="fileSelectionView"
+            Grid.Row="0" Grid.Column="2" 
+            Margin="{StaticResource Margin}"
+            ToolTip="Enter or select filename."/>
+        <StackPanel 
+            Grid.Row="1" Grid.Column="2"
+            Orientation="Horizontal" HorizontalAlignment="Center"
+            Margin="{StaticResource Margin}">
+            <Button 
+                Name="loadFile"
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Margin="{StaticResource Margin}" Click="loadFile_Click"
+                ToolTip="Click to load file contents into the output queue below.">
+                <Image 
+                    Height="{StaticResource ButtonImageHeight}" Width="{StaticResource ButtonImageHeight}" 
+                    Source="/IdUtility;component/Views/Resources/arrow-down-double.png"/>
+            </Button>
+            <Button 
+                Name="sendToDatabase"
+                Margin="15,2,2,2" 
+                Click="sendToDatabase_Click" 
+                ToolTip="Click to load file contents directly into the database.  Creates new serial number and tracker entries.">
+                <StackPanel Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Load Into DB</Label>
+                    <Image 
+                        Height="{StaticResource ButtonImageHeight}" Width="{StaticResource ButtonImageHeight}" 
+                        Source="/IdUtility;component/Views/Resources/arrow-right-double.png" />
+                </StackPanel>
+                    
+            </Button>
+            <Image 
+                Height="{StaticResource ButtonImageHeight}" Width="{StaticResource ButtonImageHeight}"
+                Margin="5,2,2,2"
+                Source="/IdUtility;component/Views/Resources/network-server-database.png" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.RowSpan="7"
+            Background="LightGray"
+            Margin="{StaticResource Margin}">
+        <Label 
+            Grid.Row="2"
+            Grid.Column="0" 
+            Content="Asset Data" FontSize="16" 
+            HorizontalAlignment="Center"
+            ToolTip="Click the arrow to the right to add this label to the queue." />
+        <local:SerialNumberView 
+            x:Name="serialNumberView"
+            Grid.Row="3" Grid.Column="0" 
+            ToolTip="Click the arrow to the right to add this label to the queue." />
+        <local:AssetView
+            x:Name="assetView"
+            Grid.Row="4" Grid.Column="0" 
+            ToolTip="Click the arrow to the right to add this label to the queue." />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="0" Grid.Column="1" Grid.RowSpan="7"
+            VerticalAlignment="Center">
+            <Button
+                x:Name="addToQueue"
+                ToolTip="Click to add label on the left to the queue.  Check 'Auto' to do this automatically whenever a label is loaded." Click="addToQueue_Click">
+                <Image Source="/IdUtility;component/Views/Resources/arrow-right.png" />
+            </Button>
+            <CheckBox 
+                Name="autoQueue"
+                VerticalAlignment="Center"
+                Margin="{StaticResource Margin}"
+                ToolTip="Check to automatically look up serial number when Enter is keyed above.  Useful for scanner operation." IsChecked="True">
+                Auto
+            </CheckBox>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="2"
+            Background="LightGray"
+            Margin="{StaticResource Margin}"
+            Height="235">
+            <Label 
+                Content="Label Output Queue" FontSize="16" 
+                HorizontalAlignment="Center"
+                ToolTip="Labels that can be sent to the printer." />
+            <local:SpoolerView
+                x:Name="spoolerView"
+                Width="200" ToolTip="Labels that can be sent to the printer." />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="6" Grid.Column="2" 
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="{StaticResource Margin}">
+            <Button 
+                Name="printAll"
+                Margin="{StaticResource ButtonMargin}"
+                ToolTip="Print all labels in the list." Click="printAll_Click">
+                <Image Source="/IdUtility;component/Views/Resources/arrow-down-double.png"/>
+            </Button>
+            <Button 
+                Name="printSelected"
+                Margin="{StaticResource ButtonMargin}"
+                ToolTip="Print the selected label." Click="printSelected_Click">
+                <Image Source="/IdUtility;component/Views/Resources/arrow-down.png" />
+            </Button>
+            <Button 
+                Name="deleteSelected"
+                Margin="{StaticResource ButtonMargin}"
+                ToolTip="Delete the selected label." Click="deleteSelected_Click">
+                <Image Source="/IdUtility;component/Views/Resources/mail-delete.png"/>
+            </Button>
+            <Button 
+                Name="deleteAll"
+                Margin="{StaticResource ButtonMargin}" 
+                 ToolTip="Delete all labels in the list." Click="deleteAll_Click">
+                <Image Source="/IdUtility;component/Views/Resources/edit-clear-4.png" Height="32"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="8" Grid.Column="1" Grid.RowSpan="1"
+            VerticalAlignment="Center">
+            <Button
+                x:Name="printDirect"
+                ToolTip="Click to immediately print the label to the left.  Check 'Auto' to do this automatically when the label information is filled." Click="printDirect_Click">
+                <Image Source="/IdUtility;component/Views/Resources/arrow-right.png" />
+            </Button>
+            <CheckBox 
+                Name="autoPrint"
+                VerticalAlignment="Center"
+                Margin="{StaticResource Margin}"
+                ToolTip="Check to automatically look up serial number when Enter is keyed above.  Useful for scanner operation." IsChecked="False">
+                Auto
+            </CheckBox>
+        </StackPanel>
+        <local:PrinterSelectView 
+            x:Name="printerSelectView"
+            Grid.Row="8" Grid.Column="2"
+            Width="250"/>
+    </Grid>
+</Window>

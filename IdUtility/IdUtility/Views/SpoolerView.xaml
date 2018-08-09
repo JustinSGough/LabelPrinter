@@ -1,0 +1,38 @@
+﻿<UserControl 
+    x:Class="Logikos.Restoration.IdUtility.Views.SpoolerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Control.Resources>
+        <system:Double x:Key="TextBoxHeight">25</system:Double>
+        <system:Double x:Key="ButtonHeight">30</system:Double>
+        <system:Double x:Key="ButtonImageHeight">25</system:Double>
+        <Thickness x:Key="ControlMargin">2,2,2,2</Thickness>
+        <Thickness x:Key="ItemMargin">2,2,2,2</Thickness>
+        <GridLength x:Key="GridRowHeight"></GridLength>
+        <DataTemplate x:Key="SpoolItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <!-- Image could be dynamically determined to support tags, transponders. -->
+                <Image Source="/IdUtility;component/Views/Resources/tag-blue.png" Margin="{StaticResource ItemMargin}" />
+                <TextBlock Text="{Binding AssetId}" Margin="{StaticResource ItemMargin}"/>
+                <TextBlock Text="{Binding SerialNumber}" Margin="{StaticResource ItemMargin}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Control.Resources>
+
+    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListBox 
+            Name="spoolerList" 
+            Height="190"
+            HorizontalAlignment="Stretch"
+            Margin="{StaticResource ControlMargin}"
+            ItemsSource="{Binding Path=JobList}"
+            ItemTemplate  ="{StaticResource SpoolItemTemplate}"/>
+    </DockPanel>
+
+</UserControl>
